@@ -1,3 +1,5 @@
+package se.nording.moo;
+
 public interface IGameLogic {
 
     String makeTargetCombo();

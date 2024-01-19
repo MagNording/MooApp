@@ -1,3 +1,5 @@
+package se.nording.moo;
+
 public class PlayerAverage {
     private String name;
     private double average;

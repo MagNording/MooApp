@@ -1,14 +1,22 @@
+package se.nording.moo;
+
 import java.sql.SQLException;
 import java.util.List;
 
-public class MooApp {
+public class GameController {
+    private SimpleWindow window;
+    private DatabaseManager databaseManager;
+    private UserInterface userInterface;
+    private GameLogic gameLogic;
 
-    public static void main(String[] args) {
-        SimpleWindow window = new SimpleWindow("Moo");
-        DatabaseManager databaseManager = new DatabaseManager();
-        UserInterface userInterface = new UserInterface(window);
-        GameLogic gameLogic = new GameLogic();
+    public GameController() {
+        window = new SimpleWindow("Moo");
+        databaseManager = new DatabaseManager();
+        userInterface = new UserInterface(window);
+        gameLogic = new GameLogic();
+    }
 
+    public void start() {
         try {
             databaseManager.connect(); // Anslut till databasen
 
@@ -22,7 +30,6 @@ public class MooApp {
                 Thread.sleep(5000);
                 window.exit();
             } else {
-
                 boolean isPracticeMode = true; // Sätt till false för att dölja målkombon
                 boolean answer;
                 do {

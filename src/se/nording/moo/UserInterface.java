@@ -1,3 +1,5 @@
+package se.nording.moo;
+
 import java.util.List;
 
 public class UserInterface implements IUserInterface {
