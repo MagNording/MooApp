@@ -68,10 +68,10 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
     @Override
-    public void insertResult(int nGuess, int playerId) throws SQLException {
+    public void insertResult(int guessCounter, int playerId) throws SQLException {
         String query = "INSERT INTO results (result, playerid) VALUES (?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-            pstmt.setInt(1, nGuess);
+            pstmt.setInt(1, guessCounter);
             pstmt.setInt(2, playerId);
             pstmt.executeUpdate();
         }

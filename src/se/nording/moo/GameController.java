@@ -18,11 +18,11 @@ public class GameController {
     }
 
     public void start() {
+        int guessCounter = 0;
         try {
             databaseManager.connect(); // Anslut till databasen
-
             // Användarinloggning
-            userInterface.displayMessage("Enter your user name:\n");
+            userInterface.displayMessage("Enter your user name:\\n");
             String name = userInterface.getUserInput();
             int playerId = databaseManager.getPlayerId(name);
 
@@ -41,24 +41,14 @@ public class GameController {
                     if (isPracticeMode) {
                         userInterface.displayMessage("For practice, number is: " + goal + "\n");
                     }
-
                     // Loop för att hantera gissningar
-                    int nGuess = 0;
-                    String result;
-                    do {
-                        String guess = userInterface.getUserInput();
-                        nGuess++;
-                        result = gameLogic.calculateBullsAndCows(goal, guess);
-                        userInterface.displayMessage(guess + ": " + result + "\n");
-                    } while (!result.equals("BBBB,"));
+                    guessCounter = handleGuesses(goal, guessCounter);
 
                     // Spara resultat och visa topplistan
-                    databaseManager.insertResult(nGuess, playerId);
-                    List<PlayerAverage> topPlayers = databaseManager.getTopPlayers();
-                    userInterface.showTopPlayers(topPlayers);
+                    saveResultAndShowToplist(guessCounter, playerId);
 
                     // Fråga om användaren vill fortsätta
-                    answer = userInterface.confirmContinue("Correct, it took " + nGuess + " guesses\nContinue?");
+                    answer = userInterface.confirmContinue("Correct, it took " + guessCounter + " guesses\nContinue?");
                 } while (answer);
             }
         } catch (SQLException | InterruptedException e) {
@@ -67,4 +57,28 @@ public class GameController {
             window.exit();
         }
     }
+    private int handleGuesses(String goal, int guessCounter) {
+        String result;
+        do {
+            String guess = userInterface.getUserInput();
+            guessCounter++;
+            result = gameLogic.calculateBullsAndCows(goal, guess);
+            userInterface.displayMessage(guess + ": " + result + "\n");
+        } while (!result.equals("BBBB,"));
+        return guessCounter;
+    }
+
+    private void saveResultAndShowToplist(int guessCounter, int playerId) {
+        try {
+            databaseManager.insertResult(guessCounter, playerId);
+            List<PlayerAverage> topPlayers = databaseManager.getTopPlayers();
+            userInterface.showTopPlayers(topPlayers);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            userInterface.displayMessage("An error occurred while saving. Please try again.");
+        }
+    }
 }
+
+
+
