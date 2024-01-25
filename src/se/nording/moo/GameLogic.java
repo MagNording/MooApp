@@ -23,8 +23,6 @@ public class GameLogic implements IGameLogic{
 
     // Jämför spelarens gissning med målet
     // Bulls = rätt siffra på rätt plats, Cows = rätt siffra på fel plats
-    // Obs impl av Uffes variant = även om en siffra varit Bull kan den också
-    // förekomma som Cow.
     @Override
     public String calculateBullsAndCows(String goal, String guess) {
         int cows = 0, bulls = 0;

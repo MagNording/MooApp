@@ -9,11 +9,12 @@ public class GameController {
     private UserInterface userInterface;
     private GameLogic gameLogic;
 
-    public GameController() {
-        window = new SimpleWindow("Moo");
-        databaseManager = new DatabaseManager();
-        userInterface = new UserInterface(window);
-        gameLogic = new GameLogic();
+    public GameController(SimpleWindow window, DatabaseManager databaseManager,
+                          UserInterface userInterface, GameLogic gameLogic) {
+        this.window = window;
+        this.databaseManager = databaseManager;
+        this.userInterface = userInterface;
+        this.gameLogic = gameLogic;
     }
 
     public void start() {
