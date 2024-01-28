@@ -13,7 +13,7 @@ public class DatabaseManager implements IDatabaseManager {
         String user = "root";
         String password = "Tester1";
         connection = DriverManager.getConnection(url, user, password);
-        Statement stmt = connection.createStatement();
+        //Statement stmt = connection.createStatement();
     }
 
     public ArrayList<PlayerAverage> getTopPlayers() throws SQLException {

@@ -22,7 +22,7 @@ public class GameController {
         try {
             databaseManager.connect(); // Anslut till databasen
             // Användarinloggning
-            userInterface.displayMessage("Enter your user name:\\n");
+            userInterface.displayMessage("Enter your user name:\n");
             String name = userInterface.getUserInput();
             int playerId = databaseManager.getPlayerId(name);
 

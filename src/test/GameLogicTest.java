@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.jupiter.api.Test;
 import se.nording.moo.GameLogic;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-class GameLogicTest {
+public class GameLogicTest {
     GameLogic gameLogic = new GameLogic();
 
-    @org.junit.jupiter.api.Test
+    @Test
     void makeTargetCombo() {
         String result = gameLogic.makeTargetCombo();
         assertTrue(result.matches("\\d{4}"));
@@ -20,7 +21,7 @@ class GameLogicTest {
         }
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void calculateBullsAndCows() {
         String result = gameLogic.calculateBullsAndCows("1234", "4321");
         assertEquals(",CCCC", result);
