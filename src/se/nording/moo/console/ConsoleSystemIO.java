@@ -1,32 +1,31 @@
-package se.nording.moo;
+package se.nording.moo.console;
 
+import se.nording.moo.ui.IUserInterface;
+import se.nording.moo.util.PlayerAverage;
 import java.util.List;
+import java.util.Scanner;
 
-public class UserInterface implements IUserInterface {
-    private SimpleWindow window;
-
-    public UserInterface(SimpleWindow window) {
-        this.window = window;
-    }
+public class ConsoleSystemIO implements IUserInterface {
+    private Scanner input = new Scanner(System.in);
 
     @Override
     public void displayMessage(String message) {
-        window.addString(message + "\n");
+        System.out.println(message + "\n");
     }
 
     @Override
     public String getUserInput() {
-        return window.getString();
+        return input.nextLine();
     }
 
     @Override
     public boolean confirmContinue(String message) {
-        return window.yesNo(message);
+        return Boolean.parseBoolean((message));
     }
 
     @Override
     public void clearScreen() {
-        window.clear();
+        System.exit(0);
     }
 
     @Override

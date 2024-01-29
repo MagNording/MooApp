@@ -1,4 +1,9 @@
-package se.nording.moo;
+package se.nording.moo.game;
+
+import se.nording.moo.ui.SimpleWindow;
+import se.nording.moo.ui.UserInterface;
+import se.nording.moo.database.DatabaseManager;
+import se.nording.moo.util.PlayerAverage;
 
 import java.sql.SQLException;
 import java.util.List;

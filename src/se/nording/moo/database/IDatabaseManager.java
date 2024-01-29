@@ -1,4 +1,6 @@
-package se.nording.moo;
+package se.nording.moo.database;
+
+import se.nording.moo.util.PlayerAverage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -2,11 +2,8 @@ package test;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import se.nording.moo.DatabaseManager;
-import se.nording.moo.IDatabaseManager;
+import se.nording.moo.database.IDatabaseManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

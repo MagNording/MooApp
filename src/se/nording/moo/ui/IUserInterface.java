@@ -1,4 +1,6 @@
-package se.nording.moo;
+package se.nording.moo.ui;
+
+import se.nording.moo.util.PlayerAverage;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package se.nording.moo;
+package se.nording.moo.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package se.nording.moo;
+package se.nording.moo.game;
 
 public interface IGameLogic {
 
