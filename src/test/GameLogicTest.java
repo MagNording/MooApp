@@ -1,3 +1,10 @@
+/**
+ * Test class for GameLogic
+ *
+ * @author Magnus Nording
+ * @version 1.8 (2024-01-30)
+ */
+
 package test;
 
 import org.junit.jupiter.api.Test;

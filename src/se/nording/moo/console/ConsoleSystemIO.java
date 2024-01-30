@@ -1,3 +1,9 @@
+/**
+ * To be able to run in a console environment
+ *
+ * @author Magnus Nording
+ * @version 1.8 (2024-01-30)
+ */
 package se.nording.moo.console;
 
 import se.nording.moo.ui.IO;

@@ -1,3 +1,9 @@
+/**
+ * Main method for the MOO game.
+ *
+ * @author Magnus Nording, magnus.nording@iths.se
+ * @version 1.8 (2024-01-30)
+ */
 package se.nording.moo.ui;
 
 import se.nording.moo.console.ConsoleSystemIO;

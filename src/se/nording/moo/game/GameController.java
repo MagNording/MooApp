@@ -1,3 +1,9 @@
+/**
+ * Game controller class for the Bulls and Cows game
+ *
+ * @author Magnus Nording
+ * @version 1.8 (2024-01-30)
+ */
 package se.nording.moo.game;
 
 import se.nording.moo.database.DatabaseManager;
@@ -60,6 +66,7 @@ public class GameController {
             io.exit();
         }
     }
+
     private int handleGuesses(String goal, int guessCounter) {
         String result;
         do {
