@@ -1,9 +1,13 @@
 package se.nording.moo.game;
 
+import se.nording.moo.ui.IO;
+import se.nording.moo.util.PlayerAverage;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class GameLogic implements IGameLogic{
+public class GameLogic implements IGameLogic {
 
     // Generera en fyrsiffrig kod
     @Override
@@ -41,5 +45,16 @@ public class GameLogic implements IGameLogic{
         return "B".repeat(Math.max(0, bulls)) +
                 "," +
                 "C".repeat(Math.max(0, cows));
+    }
+
+    @Override
+    public void showTopPlayers(List<PlayerAverage> topPlayers, IO io) {
+        io.addString("Top Ten List\n    Player     Average\n");
+        int pos = 1;
+        for (PlayerAverage player : topPlayers) {
+            io.addString(String.format("%3d %-10s%5.2f", pos++, player.getName(),
+                    player.getAverage()));
+            if (pos > 10) break;
+        }
     }
 }

@@ -1,24 +1,21 @@
 package se.nording.moo.game;
 
-import se.nording.moo.ui.SimpleWindow;
-import se.nording.moo.ui.UserInterface;
 import se.nording.moo.database.DatabaseManager;
 import se.nording.moo.util.PlayerAverage;
+import se.nording.moo.ui.IO;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class GameController {
-    private SimpleWindow window;
+    private IO io;
     private DatabaseManager databaseManager;
-    private UserInterface userInterface;
     private GameLogic gameLogic;
 
-    public GameController(SimpleWindow window, DatabaseManager databaseManager,
-                          UserInterface userInterface, GameLogic gameLogic) {
-        this.window = window;
+    public GameController(IO io, DatabaseManager databaseManager,
+                          GameLogic gameLogic) {
+        this.io = io;
         this.databaseManager = databaseManager;
-        this.userInterface = userInterface;
         this.gameLogic = gameLogic;
     }
 
@@ -27,24 +24,24 @@ public class GameController {
         try {
             databaseManager.connect(); // Anslut till databasen
             // Användarinloggning
-            userInterface.displayMessage("Enter your user name:\n");
-            String name = userInterface.getUserInput();
+            io.addString("Enter your user name:\n");
+            String name = io.getString();
             int playerId = databaseManager.getPlayerId(name);
 
             if (playerId == -1) {
-                userInterface.displayMessage("User not in database, please register with admin");
+                io.addString("User not in database, please register with admin");
                 Thread.sleep(5000);
-                window.exit();
+                io.exit();
             } else {
                 boolean isPracticeMode = true; // Sätt till false för att dölja målkombon
                 boolean answer;
                 do {
                     String goal = gameLogic.makeTargetCombo();
-                    userInterface.clearScreen();
-                    userInterface.displayMessage("New game:\n");
+                    io.clear();
+                    io.addString("New game:\n");
 
                     if (isPracticeMode) {
-                        userInterface.displayMessage("For practice, number is: " + goal + "\n");
+                        io.addString("For practice, number is: " + goal + "\n");
                     }
                     // Loop för att hantera gissningar
                     guessCounter = handleGuesses(goal, guessCounter);
@@ -53,22 +50,23 @@ public class GameController {
                     saveResultAndShowToplist(guessCounter, playerId);
 
                     // Fråga om användaren vill fortsätta
-                    answer = userInterface.confirmContinue("Correct, it took " + guessCounter + " guesses\nContinue?");
+                    answer = io.yesNo("Correct, it took " + guessCounter + " guesses" +
+                            "\nContinue?");
                 } while (answer);
             }
         } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         } finally {
-            window.exit();
+            io.exit();
         }
     }
     private int handleGuesses(String goal, int guessCounter) {
         String result;
         do {
-            String guess = userInterface.getUserInput();
+            String guess = io.getString();
             guessCounter++;
             result = gameLogic.calculateBullsAndCows(goal, guess);
-            userInterface.displayMessage(guess + ": " + result + "\n");
+            io.addString(guess + ": " + result + "\n");
         } while (!result.equals("BBBB,"));
         return guessCounter;
     }
@@ -77,10 +75,10 @@ public class GameController {
         try {
             databaseManager.insertResult(guessCounter, playerId);
             List<PlayerAverage> topPlayers = databaseManager.getTopPlayers();
-            userInterface.showTopPlayers(topPlayers);
+            gameLogic.showTopPlayers(topPlayers, io);
         } catch (SQLException e) {
             e.printStackTrace();
-            userInterface.displayMessage("An error occurred while saving. Please try again.");
+            io.addString("An error occurred while saving. Please try again.");
         }
     }
 }

@@ -9,13 +9,12 @@ public class MooApp {
 
     public static void main(String[] args) {
         try {
-            SimpleWindow window = new SimpleWindow("Moo");
+            IO io = new ConsoleSystemIO(); // Kör i terminalen
+            //IO io = new SimpleWindow("Moo"); // Kör i ett fönster
             DatabaseManager databaseManager = new DatabaseManager();
-            UserInterface userInterface = new UserInterface(window);
             GameLogic gameLogic = new GameLogic();
 
-            GameController gameController = new GameController(window, databaseManager,
-                    userInterface, gameLogic);
+            GameController gameController = new GameController(io, databaseManager, gameLogic);
             gameController.start();
         } catch (Exception e) {
             e.printStackTrace();
