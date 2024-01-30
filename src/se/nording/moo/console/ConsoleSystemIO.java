@@ -2,6 +2,8 @@ package se.nording.moo.console;
 
 import se.nording.moo.ui.IUserInterface;
 import se.nording.moo.util.PlayerAverage;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,14 +21,26 @@ public class ConsoleSystemIO implements IUserInterface {
     }
 
     @Override
-    public boolean confirmContinue(String message) {
-        return Boolean.parseBoolean((message));
+    public boolean confirmContinue(String prompt) {
+        System.out.println(prompt + " (y/n)");
+        String answer = input.nextLine();
+        return answer.equalsIgnoreCase("y");
     }
 
     @Override
     public void clearScreen() {
-        System.exit(0);
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
     }
+
 
     @Override
     public void showTopPlayers(List<PlayerAverage> topPlayers) {
