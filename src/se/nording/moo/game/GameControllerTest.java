@@ -25,6 +25,7 @@ public class GameControllerTest {
         gameController = new GameController(io, databaseManager, gameLogic);
     }
 
+    // Testar metoden handleGuesses i GameController
     @Test
     void testHandleGuesses() {
         when(io.getString()).thenReturn("1234", "abcd", "5678"); // två giltiga gissningar och en ogiltig
