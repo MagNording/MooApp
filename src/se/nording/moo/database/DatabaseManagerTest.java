@@ -5,7 +5,7 @@
  * @version 1.8 (2024-01-30)
  */
 
-package test;
+package se.nording.moo.database;
 
 import org.junit.jupiter.api.Test;
 import se.nording.moo.database.IDatabaseManager;

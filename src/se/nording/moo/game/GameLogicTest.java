@@ -5,14 +5,14 @@
  * @version 1.8 (2024-01-30)
  */
 
-package test;
+package se.nording.moo.game;
 
 import org.junit.jupiter.api.Test;
 import se.nording.moo.game.GameLogic;
 import java.util.HashSet;
 import java.util.Set;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class GameLogicTest {
@@ -32,5 +32,14 @@ public class GameLogicTest {
     void calculateBullsAndCows() {
         String result = gameLogic.calculateBullsAndCows("1234", "4321");
         assertEquals(",CCCC", result);
+        // Testar att bokstäver inte räknas som kor
+        String result2 = gameLogic.calculateBullsAndCows("1034", "1o34");
+        assertEquals("BBB,", result2);
+    }
+
+    @Test
+    void calculateBullsAndCows_noMatches() {
+        String result = gameLogic.calculateBullsAndCows("1234", "5678");
+        assertEquals(",", result);
     }
 }

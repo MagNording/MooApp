@@ -9,11 +9,11 @@ package se.nording.moo.ui;
 
 public interface IO {
 
-    boolean yesNo(String prompt);
+    boolean yesNo(String prompt); // true/false fråga
 
-    String getString();
+    String getString(); // Läser in en sträng från användaren
 
-    void addString(String s);
+    void addString(String s); // Skriver ut en sträng till användaren
 
     void clear();
 

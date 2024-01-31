@@ -67,15 +67,28 @@ public class GameController {
         }
     }
 
-    private int handleGuesses(String goal, int guessCounter) {
-        String result;
+    int handleGuesses(String goal, int guessCounter) {
+        String result = "";
         do {
             String guess = io.getString();
-            guessCounter++;
-            result = gameLogic.calculateBullsAndCows(goal, guess);
-            io.addString(guess + ": " + result + "\n");
+            if (isValidGuess(guess, goal.length())) {
+                guessCounter++;
+                result = gameLogic.calculateBullsAndCows(goal, guess);
+                io.addString(guess + ": " + result + "\n");
+            } else {
+                // Informera användaren om den ogiltiga gissningen
+                io.addString("Invalid guess. Please try again.\n");
+            }
         } while (!result.equals("BBBB,"));
         return guessCounter;
+    }
+
+    private boolean isValidGuess(String guess, int goalLength) {
+        if (guess.length() != goalLength) return false;
+        for (char c : guess.toCharArray()) {
+            if (!Character.isDigit(c)) return false;
+        }
+        return true;
     }
 
     private void saveResultAndShowToplist(int guessCounter, int playerId) {
