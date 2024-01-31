@@ -15,12 +15,11 @@ public class GameControllerTest {
     private IO io;
     private GameLogic gameLogic;
     private GameController gameController;
-    private DatabaseManager databaseManager;
 
     @BeforeEach
     void setUp() {
         io = mock(IO.class);
-        databaseManager = mock(DatabaseManager.class);
+        DatabaseManager databaseManager = mock(DatabaseManager.class);
         gameLogic = mock(GameLogic.class);
         gameController = new GameController(io, databaseManager, gameLogic);
     }
