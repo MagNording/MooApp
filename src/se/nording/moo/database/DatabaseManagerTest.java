@@ -37,5 +37,4 @@ public class DatabaseManagerTest {
 
         verify(mockDBManager).getPlayerId("testUser");
     }
-
 }

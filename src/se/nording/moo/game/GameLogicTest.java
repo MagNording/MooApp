@@ -32,9 +32,13 @@ public class GameLogicTest {
     void calculateBullsAndCows() {
         String result = gameLogic.calculateBullsAndCows("1234", "4321");
         assertEquals(",CCCC", result);
-        // Testar att bokstäver inte räknas som kor
-        String result2 = gameLogic.calculateBullsAndCows("1034", "1o34");
-        assertEquals("BBB,", result2);
+    }
+
+    @Test
+    void calculateBullsAndCows_withNonDigit() {
+            // Testar att bokstäver inte räknas som kor, "o" istället för "0"
+            String result2 = gameLogic.calculateBullsAndCows("1034", "1o34");
+            assertEquals("BBB,", result2);
     }
 
     @Test
@@ -42,4 +46,6 @@ public class GameLogicTest {
         String result = gameLogic.calculateBullsAndCows("1234", "5678");
         assertEquals(",", result);
     }
+
+
 }

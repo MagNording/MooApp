@@ -11,7 +11,6 @@ import java.util.concurrent.BlockingQueue;
 
 import javax.swing.*;
 
-
 public class SimpleWindow implements IO {
     private JFrame window;
     private JTextArea text;

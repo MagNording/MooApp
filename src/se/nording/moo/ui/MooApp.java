@@ -15,8 +15,8 @@ public class MooApp {
 
     public static void main(String[] args) {
         try {
-            IO io = new ConsoleSystemIO(); // Kör i terminalen
-            //IO io = new SimpleWindow("Moo"); // Kör i ett fönster
+            //IO io = new ConsoleSystemIO();     // Kör i terminalen
+            IO io = new SimpleWindow("Moo"); // Kör i ett fönster
             DatabaseManager databaseManager = new DatabaseManager();
             GameLogic gameLogic = new GameLogic();
 

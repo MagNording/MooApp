@@ -18,8 +18,7 @@ public class GameController {
     private DatabaseManager databaseManager;
     private GameLogic gameLogic;
 
-    public GameController(IO io, DatabaseManager databaseManager,
-                          GameLogic gameLogic) {
+    public GameController(IO io, DatabaseManager databaseManager, GameLogic gameLogic) {
         this.io = io;
         this.databaseManager = databaseManager;
         this.gameLogic = gameLogic;
