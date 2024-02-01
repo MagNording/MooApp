@@ -3,11 +3,13 @@ package se.nording.moo.game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.nording.moo.database.DatabaseManager;
+import se.nording.moo.database.IDatabaseManager;
 import se.nording.moo.ui.IO;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -15,13 +17,33 @@ public class GameControllerTest {
     private IO io;
     private GameLogic gameLogic;
     private GameController gameController;
+    private DatabaseManager databaseManager;
 
     @BeforeEach
     void setUp() {
         io = mock(IO.class);
-        DatabaseManager databaseManager = mock(DatabaseManager.class);
+        databaseManager = mock(DatabaseManager.class);
         gameLogic = mock(GameLogic.class);
         gameController = new GameController(io, databaseManager, gameLogic);
+    }
+
+    @Test
+    void testLoginUserWithUnknownUser() throws SQLException, InterruptedException {
+        when(io.getString()).thenReturn("unknownUser");
+        when(databaseManager.getPlayerId("unknownUser")).thenReturn(-1);
+
+        int result = gameController.loginUser();
+        // Verifiera att resultatet inte är det förväntade giltiga playerId (t.ex., 1)
+        assertNotEquals(1, result);
+    }
+
+    @Test
+    void testLoginUserWithUnknownUserDisplaysCorrectMessage() throws SQLException, InterruptedException {
+        when(io.getString()).thenReturn("unknownUser");
+        when(databaseManager.getPlayerId("unknownUser")).thenReturn(-1);
+        gameController.loginUser();
+        // Verifiera att rätt meddelande visas för användaren
+        verify(io).addString("User not in database, please register with admin");
     }
 
     // Testar metoden handleGuesses i GameController

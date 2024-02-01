@@ -25,45 +25,51 @@ public class GameController {
     }
 
     public void start() {
-        int guessCounter = 0;
         try {
             databaseManager.connect(); // Anslut till databasen
-            // Användarinloggning
-            io.addString("Enter your user name:\n");
-            String name = io.getString();
-            int playerId = databaseManager.getPlayerId(name);
-
-            if (playerId == -1) {
-                io.addString("User not in database, please register with admin");
-                Thread.sleep(5000);
-                io.exit();
-            } else {
-                boolean isPracticeMode = true; // Sätt till false för att dölja målkombon
-                boolean answer;
-                do {
-                    String goal = gameLogic.makeTargetCombo();
-                    io.clear();
-                    io.addString("New game:\n");
-
-                    if (isPracticeMode) {
-                        io.addString("For practice, number is: " + goal + "\n");
-                    }
-                    // Loop för att hantera gissningar
-                    guessCounter = handleGuesses(goal, guessCounter);
-
-                    // Spara resultat och visa topplistan
-                    saveResultAndShowToplist(guessCounter, playerId);
-
-                    // Fråga om användaren vill fortsätta
-                    answer = io.yesNo("Correct, it took " + guessCounter + " guesses" +
-                            "\nContinue?");
-                } while (answer);
-            }
+            int playerId = loginUser(); // Användarinloggning
+            playGame(playerId); // Hantera spelet
         } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         } finally {
             io.exit();
         }
+    }
+
+    int loginUser() throws SQLException, InterruptedException {
+        io.addString("Enter your user name:\n");
+        String name = io.getString();
+        int playerId = databaseManager.getPlayerId(name);
+
+        if (playerId == -1) {
+            io.addString("User not in database, please register with admin");
+            Thread.sleep(5000);
+            io.exit();
+        }
+        return playerId;
+    }
+
+    private void playGame(int playerId) throws SQLException, InterruptedException {
+        boolean isPracticeMode = true; // Eller gör detta till en konfiguration eller parameter.
+        boolean answer;
+        do {
+            String goal = gameLogic.makeTargetCombo();
+            io.clear();
+            io.addString("New game:\n");
+
+            if (isPracticeMode) {
+                io.addString("For practice, number is: " + goal + "\n");
+            }
+            int guessCounter = handleGuesses(goal, 0);
+
+            saveResultAndShowToplist(guessCounter, playerId);
+
+            answer = askToContinue(guessCounter);
+        } while (answer); // Fortsätt loopen baserat på användarens svar.
+    }
+
+    private boolean askToContinue(int guessCounter) {
+        return io.yesNo("Correct, it took " + guessCounter + " guesses. \nContinue?");
     }
 
     int handleGuesses(String goal, int guessCounter) {
