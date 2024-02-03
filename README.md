@@ -2,20 +2,20 @@ console:
     ConsoleSystemIO
 
 database:
-    DatabaseManager
-    DatabaseManagerTest
+    DatabaseManager,
+    DatabaseManagerTest,
     IDatabaseManager
 
 game:
-    GameController
-    GameControllerTest
-    GameLogic
-    GameLogicTest
+    GameController,
+    GameControllerTest,
+    GameLogic,
+    GameLogicTest,
     IGameLogic
 
 ui:
-    IO
-    MooApp
+    IO,
+    MooApp,
     SimpleWindow
 
 util:
