@@ -8,7 +8,6 @@
 package se.nording.moo.database;
 
 import org.junit.jupiter.api.Test;
-import se.nording.moo.database.IDatabaseManager;
 import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

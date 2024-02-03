@@ -29,6 +29,12 @@ public class GameLogicTest {
     }
 
     @Test
+    void makeTargetCombo_notAllUnique() {
+        String result = gameLogic.makeTargetCombo();
+        assertFalse(result.matches("^(\\d)\\1{3}$"));
+    }
+
+    @Test
     void calculateBullsAndCows() {
         String result = gameLogic.calculateBullsAndCows("1234", "4321");
         assertEquals(",CCCC", result);
