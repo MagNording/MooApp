@@ -18,8 +18,8 @@ public class DatabaseManager implements IDatabaseManager {
     @Override
     public void connect() throws SQLException {
         String url = "jdbc:mysql://localhost/moo";
-        String user = "root";
-        String password = "Tester1";
+        String user = "xxx";
+        String password = "xxx";
         connection = DriverManager.getConnection(url, user, password);
     }
 
